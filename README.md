@@ -64,6 +64,17 @@ A Signal-inspired secure messaging platform built for an SDE Fullstack assignmen
 - ✅ Settings placeholders with functional profile editing
 - ✅ Responsive design (mobile, tablet, desktop)
 
+## Free-tier deployment
+
+The repository includes a Render Blueprint for the frontend and API. The API uses Neon Postgres because Render's free service filesystem is temporary. Free-tier services can sleep while idle, so the first request after inactivity may take a little longer.
+
+1. Create a free Postgres project at [Neon](https://neon.tech/) and copy its connection string. Use the `postgresql+psycopg://` scheme (instead of `postgresql://`) and retain the `sslmode=require` query parameter.
+2. Sign in to [Render](https://render.com/) and create a Blueprint from this repository. Render reads `render.yaml` and creates the frontend and API services.
+3. When prompted, set `DATABASE_URL` to the Neon connection string. Render generates `JWT_SECRET_KEY` for the API.
+4. After both services finish deploying, open the `scaler-web` service URL.
+
+The frontend and API use `https://scaler-web.onrender.com` and `https://scaler-api.onrender.com`. If Render assigns different service URLs, update `FRONTEND_URL`, `NEXT_PUBLIC_API_URL`, and `NEXT_PUBLIC_WS_URL` in the corresponding service settings and redeploy.
+
 ## Project Structure
 
 ```
